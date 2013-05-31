@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module MyMediaPlayer
+module MyMusicPlayer
   class ShellTest < MiniTest::Unit::TestCase
 
     def test_execute_a_command_and_exit
