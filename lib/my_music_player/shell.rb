@@ -1,5 +1,5 @@
 require 'singleton'
-module MyMediaPlayer
+module MyMusicPlayer
   class Shell
     include Singleton
 

@@ -8,9 +8,9 @@ require 'pry'
 
 SimpleCov.start
 
-require 'mmp'
+require 'my_music_player'
 
-module MyMediaPlayer
+module MyMusicPlayer
   class MiniTest::Unit::TestCase
  
     add_setup_hook { |test_case| test_case.initialize_environment }
