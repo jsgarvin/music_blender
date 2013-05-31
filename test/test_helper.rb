@@ -13,15 +13,11 @@ require 'mmp'
 module MyMediaPlayer
   class MiniTest::Unit::TestCase
  
-    def before_setup
-      initialize_environment
-      capture_stdout
-    end
+    add_setup_hook { |test_case| test_case.initialize_environment }
+    add_setup_hook { |test_case| test_case.capture_stdout }
 
-    def after_teardown
-      deactivate_fake_fs
-      release_stdout
-    end
+    add_teardown_hook { |test_case| test_case.deactivate_fake_fs }
+    add_teardown_hook { |test_case| test_case.release_stdout }
 
     def initialize_environment
       initialize_fake_fs
