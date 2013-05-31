@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'simplecov'
-require 'fakefs/safe'
+#require 'fakefs/safe'
 require 'minitest/autorun'
 require 'etc'
 require 'pry'
@@ -16,26 +16,17 @@ module MyMusicPlayer
     add_setup_hook { |test_case| test_case.initialize_environment }
     add_setup_hook { |test_case| test_case.capture_stdout }
 
-    add_teardown_hook { |test_case| test_case.deactivate_fake_fs }
+    #add_teardown_hook { |test_case| test_case.deactivate_fake_fs }
     add_teardown_hook { |test_case| test_case.release_stdout }
 
     def initialize_environment
-      initialize_fake_fs
-      #stub_configuration
-    end
-
-    def initialize_fake_fs
-      FakeFS.activate!
-      FakeFS::FileSystem.clear
-      #FileUtils.mkdir_p test_source_folder
-      #FileUtils.mkdir_p test_source_folder + '/test_sub_folder'
-      #File.open(test_source_folder + '/test_sub_folder/test_file_one.txt', 'w') do |test_file|
-      #  test_file.write('Test File One')
-      #end
+      music_path = File.expand_path('../music/', __FILE__)
+      Configuration.instance.set( music_path: music_path )
+      #FakeFS.activate!
     end
 
     def deactivate_fake_fs
-      FakeFS.deactivate!
+      #FakeFS.deactivate!
     end
 
     #Capture STDOUT from program for testing and not cluttering test output
