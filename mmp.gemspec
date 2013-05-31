@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
   s.summary = %q{Simple MP3 player written in Ruby.}
   s.description = %q{A simple MP3 player written in Ruby. Depends on mpg321.}
 
-  #s.add_development_dependency('mocha')
-  #s.add_development_dependency('simplecov')
-  #s.add_development_dependency('fakefs')
-  #s.add_development_dependency('activesupport')
+  s.add_development_dependency('mocha')
+  s.add_development_dependency('pry')
+  s.add_development_dependency('simplecov')
+  s.add_development_dependency('fakefs')
 
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- test/*`.split("\n")
