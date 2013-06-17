@@ -3,9 +3,12 @@ module MyMusicPlayer
     include Singleton
 
     def ls
-      files = []
-      Find.find(music_path) { |file| files << file }
-      return files
+      Array.new.tap do |files|
+        Find.find(music_path) do |file| 
+          next if File.directory?(file)
+          files << relative_path(file)
+        end
+      end
     end
 
     #######
@@ -14,6 +17,10 @@ module MyMusicPlayer
     
     def music_path
       Configuration.instance.music_path
+    end
+
+    def relative_path(absolute_path)
+      absolute_path.gsub(/#{music_path}\//,'') 
     end
 
   end
