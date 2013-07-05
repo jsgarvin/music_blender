@@ -16,5 +16,17 @@ module MyMusicPlayer
       assert_match(/Unrecognized Command: ping/,$stdout.string)
     end
 
+    def test_execute_ls
+      Scanner.instance.expects(:ls).returns(['foo','bar'])
+      Shell.instance.run(:ls)
+      assert_match(/foo/,$stdout.string)
+      assert_match(/bar/,$stdout.string)
+    end
+
+    def test_execute_play
+      Player.instance.expects(:play)
+      Shell.instance.run(:play)
+    end
+
   end
 end

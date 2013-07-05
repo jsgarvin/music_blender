@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
+require File.expand_path('../../lib/my_music_player', __FILE__)
 
-puts 'Hello World!'
+MyMusicPlayer::Configuration.instance.set(music_path: ARGV.pop)
+MyMusicPlayer::Shell.instance.run(*ARGV)
