@@ -29,7 +29,7 @@ module MyMusicPlayer
     end
 
     def play_next_song
-      `mpg321 '#{pick_a_song}'`
+      `mpg321 -q '#{pick_a_song}'`
     end
 
     def pick_a_song
