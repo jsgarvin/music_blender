@@ -2,16 +2,18 @@ module MyMusicPlayer
   class Player
     include Singleton
 
-    attr_reader :music_thread
+    attr_reader :stdin, :stdout, :stderr, :thread
+
+    def initialize
+      @stdin, @stdout, @stderr, @thread = Open3.popen3('mpg321 -R meaningless_but_required_bogus_argument')
+    end
 
     def play
-      @music_thread ||= Thread.new do
-        play_music_until_stopped
-      end      
+      @stdin.puts "LOAD #{pick_a_song}" 
     end
     
     def stop
-      @music_thread.exit if playing?
+      stdin.puts 'STOP' 
     end
 
     #######
