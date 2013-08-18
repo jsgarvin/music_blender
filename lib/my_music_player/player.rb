@@ -1,5 +1,3 @@
-require 'io/wait'
-Thread.abort_on_exception = true
 module MyMusicPlayer
   class Player
     include Singleton
@@ -12,13 +10,14 @@ module MyMusicPlayer
       3 => 'Ended'
     }
 
-    attr_reader :stdin, :stdout, :stderr, :thread, :playing, :stop_pause_status, :song_name,
-      :frames, :frames_remaining, :seconds, :seconds_remaining
+    attr_reader :stdin, :stdout, :stderr, :playing,
+      :stop_pause_status, :song_name, :frames, :frames_remaining,
+      :seconds, :seconds_remaining
     alias_method :playing?, :playing
 
     def initialize
       @stdin, @stdout, @stderr, @wait_thread =
-        Open3.popen3('mpg321 -R meaningless_but_required_bogus_argument')
+        Open3.popen3('mpg321 -R required_bogus_argument')
       Thread.new { monitor_player_output }
     end
 
