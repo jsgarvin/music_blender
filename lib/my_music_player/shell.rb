@@ -13,11 +13,12 @@ module MyMusicPlayer
         else
           puts "Unrecognized Command: #{command}"
         end
-      end 
+      end
     end
 
     def _mmp_exit
       Player.instance.stop
+      Player.instance.quit
       puts "Exiting..."
     end
 
@@ -31,8 +32,18 @@ module MyMusicPlayer
       Player.instance.play
     end
 
+    def _mmp_pause
+      Player.instance.pause
+    end
+
     def _mmp_stop
       Player.instance.stop
+    end
+
+    def _mmp_info
+      puts Player.instance.song_name
+      puts Player.instance.status_string
+      puts "Seconds: #{Player.instance.seconds} (#{Player.instance.seconds_remaining})"
     end
   end
 end
