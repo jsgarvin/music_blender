@@ -3,10 +3,17 @@ require 'test_helper'
 module MyMusicPlayer
   class ShellTest < MiniTest::Unit::TestCase
 
+    def setup
+      mock_player = mock('player')
+      mock_player.expects(:stop)
+      mock_player.expects(:quit)
+      Player.stubs(:instance).returns(mock_player)
+    end
+
     def test_execute_a_command_and_exit
-      Shell.instance.expects(:_mmp_ping)
+      Shell.instance.expects(:_mmp_foobar)
       assert_equal('',$stdout.string)
-      Shell.instance.run(:ping)
+      Shell.instance.run(:foobar)
       assert_match(/Exiting/,$stdout.string)
     end
 
@@ -23,9 +30,21 @@ module MyMusicPlayer
       assert_match(/bar/,$stdout.string)
     end
 
-    def test_execute_play
-      Player.instance.expects(:play)
-      Shell.instance.run(:play)
+    def test_execute_info
+      Player.instance.expects(:song_name)
+      Player.instance.expects(:status_string)
+      Player.instance.expects(:seconds)
+      Player.instance.expects(:seconds_remaining)
+      assert_equal('',$stdout.string)
+      Shell.instance.run(:info)
+      refute_equal('',$stdout.string)
+    end
+
+    [:play,:pause,:stop].each do |command_name|
+      define_method("test_execute_#{command_name}") do
+        Player.instance.expects(command_name)
+        Shell.instance.run(command_name)
+      end
     end
 
   end
