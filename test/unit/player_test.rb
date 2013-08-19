@@ -35,13 +35,5 @@ module MyMusicPlayer
       @player.quit
     end
 
-    def test_process_information_message
-      Thread.unstub(:new)
-      @mock_stdin.expects(:puts).with(regexp_matches(/^LOAD /))
-      @mock_stdout.stubs(:readline).returns('@I Mock Foobar')
-      @player.play
-      assert_equal('Mock Foobar',@player.song_name)
-    end
-
   end
 end
