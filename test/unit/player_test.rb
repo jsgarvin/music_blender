@@ -35,5 +35,19 @@ module MyMusicPlayer
       @player.quit
     end
 
+    def test_should_exercise_a_delegated_method
+      mock_monitor = mock('monitor')
+      mock_monitor.expects(:song_name)
+      PlayerMonitor.stubs(:new => mock_monitor)
+      @player.song_name
+    end
+
+    def test_should_get_status_string
+      mock_monitor = mock('monitor')
+      mock_monitor.expects(:stop_pause_status => 1)
+      PlayerMonitor.stubs(:new => mock_monitor)
+      assert_equal('Paused', @player.status_string)
+    end
+
   end
 end

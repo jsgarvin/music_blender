@@ -10,10 +10,9 @@ module MyMusicPlayer
     def run
       loop do
         process_output_line(stdout.readline) while stdout.ready?
-
-        # Because some of the output message types (@F, @E) in mpg321 0.3.2
+        # Because some of the output message types (@F, @E) in mpg321 v0.3.2
         # seem to be getting erroneously sent to stderr instead of stdout.
-        #process_output_line(stderr.readline) while stderr.ready?
+        process_output_line(stderr.readline) while stderr.ready?
         sleep 0.001
       end
     end
