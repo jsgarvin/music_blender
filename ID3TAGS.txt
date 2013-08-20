@@ -1,0 +1,26 @@
+Adding ID3 Comments
+
+gem 'taglib-ruby', :require => 'taglib'
+require 'taglib'
+file = TagLib::MPEG::File.new('/path/to/file.mp3')
+tag = file.id3v2_tag(true)
+
+comment = TagLib::ID3v2::CommentsFrame.new()
+comment.description = 'MMP Rating'
+comment.text = '10'
+
+tag.add_frame(comment)
+
+file.save
+##############
+
+tag.frame_list #=> array of frames. 
+
+# Get array of comment frames
+tag.frame_list.select {|frame| frame.is_a?(TagLib::ID3v2::CommentsFrame) }
+
+# Get MMP Rating Frame
+tag.frame_list.detect { |frame| 
+  frame.is_a?(TagLib::ID3v2::CommentsFrame) and 
+    frame.description == 'MMP Rating'
+}
