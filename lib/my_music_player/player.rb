@@ -1,6 +1,5 @@
 module MyMusicPlayer
   class Player
-    include Singleton
 
     PLAYING_STATUS_CODE_MAP = {
       -1 => 'Started',

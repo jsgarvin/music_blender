@@ -11,8 +11,7 @@ module MyMusicPlayer
       @mock_monitor_thread ||= mock('monitor_thread')
       Open3.expects(:popen3).returns(@mock_stdin,@mock_stdout,@mock_stderr,@mock_wait_thread)
       Thread.expects(:new).returns(@mock_monitor_thread)
-      Singleton.__init__(Player)
-      @player = Player.instance
+      @player = Player.new
     end
 
     def test_should_load_a_song
