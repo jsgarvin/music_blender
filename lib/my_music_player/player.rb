@@ -60,7 +60,11 @@ module MyMusicPlayer
     #######
 
     def pick_a_song
-      Scanner.instance.ls.sample
+      scanner.ls.sample
+    end
+
+    def scanner
+      @scanner ||= Scanner.new
     end
 
     def monitor

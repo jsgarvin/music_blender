@@ -22,7 +22,7 @@ module MyMusicPlayer
     end
 
     def _mmp_ls
-      Scanner.instance.ls.each do |file|
+      scanner.ls.each do |file|
         puts file
       end
     end
@@ -43,6 +43,14 @@ module MyMusicPlayer
       puts Player.instance.song_name
       puts Player.instance.status_string
       puts "Seconds: #{Player.instance.seconds} (#{Player.instance.seconds_remaining})"
+    end
+
+    #######
+    private
+    #######
+
+    def scanner
+      @scanner ||= Scanner.new
     end
   end
 end
