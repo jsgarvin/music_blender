@@ -16,8 +16,8 @@ module MyMusicPlayer
     end
 
     def _mmp_exit
-      Player.instance.stop
-      Player.instance.quit
+      player.stop
+      player.quit
       puts "Exiting..."
     end
 
@@ -28,21 +28,21 @@ module MyMusicPlayer
     end
 
     def _mmp_play
-      Player.instance.play
+      player.play
     end
 
     def _mmp_pause
-      Player.instance.pause
+      player.pause
     end
 
     def _mmp_stop
-      Player.instance.stop
+      player.stop
     end
 
     def _mmp_info
-      puts Player.instance.song_name
-      puts Player.instance.status_string
-      puts "Seconds: #{Player.instance.seconds} (#{Player.instance.seconds_remaining})"
+      puts player.song_name
+      puts player.status_string
+      puts "Seconds: #{player.seconds} (#{player.seconds_remaining})"
     end
 
     #######
@@ -51,6 +51,10 @@ module MyMusicPlayer
 
     def scanner
       @scanner ||= Scanner.new
+    end
+
+    def player
+      @player ||= Player.new
     end
   end
 end

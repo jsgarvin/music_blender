@@ -2,12 +2,16 @@ require 'test_helper'
 
 module MyMusicPlayer
   class ShellTest < MiniTest::Unit::TestCase
+    attr_reader :mock_player, :mock_scanner
 
     def setup
-      mock_player = mock('player')
-      mock_player.expects(:stop)
-      mock_player.expects(:quit)
-      Player.stubs(:instance).returns(mock_player)
+      @mock_player = mock('player')
+      @mock_player.expects(:stop)
+      @mock_player.expects(:quit)
+      Player.stubs(:new).returns(@mock_player)
+
+      @mock_scanner = mock('scanner')
+      Scanner.stubs(:new).returns(@mock_scanner)
     end
 
     def test_execute_a_command_and_exit
@@ -24,17 +28,17 @@ module MyMusicPlayer
     end
 
     def test_execute_ls
-      Scanner.any_instance.expects(:ls).returns(['foo','bar'])
+      mock_scanner.expects(:ls).returns(['foo','bar'])
       Shell.new.run(:ls)
       assert_match(/foo/,$stdout.string)
       assert_match(/bar/,$stdout.string)
     end
 
     def test_execute_info
-      Player.instance.expects(:song_name)
-      Player.instance.expects(:status_string)
-      Player.instance.expects(:seconds)
-      Player.instance.expects(:seconds_remaining)
+      mock_player.expects(:song_name)
+      mock_player.expects(:status_string)
+      mock_player.expects(:seconds)
+      mock_player.expects(:seconds_remaining)
       assert_equal('',$stdout.string)
       Shell.new.run(:info)
       refute_equal('',$stdout.string)
@@ -42,7 +46,7 @@ module MyMusicPlayer
 
     [:play,:pause,:stop].each do |command_name|
       define_method("test_execute_#{command_name}") do
-        Player.instance.expects(command_name)
+        mock_player.expects(command_name)
         Shell.new.run(command_name)
       end
     end
