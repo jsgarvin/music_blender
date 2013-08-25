@@ -15,7 +15,11 @@ module MyMusicPlayer
     #######
 
     def music_path
-      Configuration.instance.music_path
+      config.music_path
+    end
+
+    def config
+      CONFIG
     end
 
     def relative_path(absolute_path)

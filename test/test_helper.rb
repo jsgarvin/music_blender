@@ -12,7 +12,7 @@ require 'my_music_player'
 
 module MyMusicPlayer
   class MiniTest::Unit::TestCase
- 
+
     add_setup_hook { |test_case| test_case.initialize_environment }
     add_setup_hook { |test_case| test_case.capture_stdout }
 
@@ -21,7 +21,9 @@ module MyMusicPlayer
 
     def initialize_environment
       music_path = File.expand_path('../music/', __FILE__)
-      Configuration.instance.set( music_path: music_path )
+      mock_config = mock('config')
+      mock_config.stubs(:music_path).returns(music_path)
+      Scanner.any_instance.stubs(:config).returns(mock_config)
       #FakeFS.activate!
     end
 

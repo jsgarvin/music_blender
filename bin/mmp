@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 require File.expand_path('../../lib/my_music_player', __FILE__)
 
-MyMusicPlayer::Configuration.instance.set(music_path: ARGV.pop)
+CONFIG = MyMusicPlayer::Configuration.new(music_path: ARGV.pop)
 MyMusicPlayer::Shell.new.run(*ARGV)
