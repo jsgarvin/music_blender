@@ -3,6 +3,9 @@ require 'test_helper'
 module MyMusicPlayer
   class ScannerTest < MiniTest::Unit::TestCase
 
+    def setup
+    end
+
     def test_should_find_files_in_music_folder
       files = Scanner.new.ls
       assert files.include?('point1sec.mp3')
