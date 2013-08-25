@@ -11,21 +11,21 @@ module MyMusicPlayer
     end
 
     def test_execute_a_command_and_exit
-      Shell.instance.expects(:_mmp_foobar)
+      Shell.any_instance.expects(:_mmp_foobar)
       assert_equal('',$stdout.string)
-      Shell.instance.run(:foobar)
+      Shell.new.run(:foobar)
       assert_match(/Exiting/,$stdout.string)
     end
 
     def test_gracefully_fail_to_execute_command
       assert_equal('',$stdout.string)
-      Shell.instance.run(:ping)
+      Shell.new.run(:ping)
       assert_match(/Unrecognized Command: ping/,$stdout.string)
     end
 
     def test_execute_ls
-      Scanner.instance.expects(:ls).returns(['foo','bar'])
-      Shell.instance.run(:ls)
+      Scanner.any_instance.expects(:ls).returns(['foo','bar'])
+      Shell.new.run(:ls)
       assert_match(/foo/,$stdout.string)
       assert_match(/bar/,$stdout.string)
     end
@@ -36,14 +36,14 @@ module MyMusicPlayer
       Player.instance.expects(:seconds)
       Player.instance.expects(:seconds_remaining)
       assert_equal('',$stdout.string)
-      Shell.instance.run(:info)
+      Shell.new.run(:info)
       refute_equal('',$stdout.string)
     end
 
     [:play,:pause,:stop].each do |command_name|
       define_method("test_execute_#{command_name}") do
         Player.instance.expects(command_name)
-        Shell.instance.run(command_name)
+        Shell.new.run(command_name)
       end
     end
 

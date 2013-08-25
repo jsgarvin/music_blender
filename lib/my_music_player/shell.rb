@@ -1,6 +1,5 @@
 module MyMusicPlayer
   class Shell
-    include Singleton
 
     def run(*commands)
       commands << :exit unless commands.empty?
