@@ -30,7 +30,7 @@ module MyMusicPlayer
 
     def initialize
       @stdin, @stdout, @stderr, @wait_thread =
-        Open3.popen3('mpg321 -R required_bogus_argument')
+        Open3.popen3('mpg123 -R required_bogus_argument')
       Thread.new { monitor.run }
       #Thread.new { monitor_player_output }
     end
