@@ -10,6 +10,9 @@ Gem::Specification.new do |s|
   s.summary = %q{Simple MP3 player written in Ruby.}
   s.description = %q{A simple MP3 player written in Ruby. Depends on mpg321.}
 
+  s.add_dependency('activerecord')
+  s.add_dependency('sqlite3')
+
   s.add_development_dependency('mocha')
   s.add_development_dependency('pry')
   s.add_development_dependency('simplecov')
