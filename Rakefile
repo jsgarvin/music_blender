@@ -19,6 +19,6 @@ task :migrate => :environment do
 end
 
 task :environment do
-  @config ||= MyMusicPlayer::Configuration.new({})
+  @dba = MyMusicPlayer::DbAdapter.new
 end
 

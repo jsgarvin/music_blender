@@ -6,7 +6,16 @@ module MyMusicPlayer
       hash.keys.each do |key|
         send("#{key}=", hash[key])
       end
-      @db_adapter = DbAdapter.new
+      initialize_db
+    end
+
+    def initialize_db
+      DbAdapter.new.spin_up
+      @root_folder = RootFolder.find_or_create_by(:path => music_path)
+      puts @root_folder.inspect
+      Dir["#{music_path}/**/*.mp3"].each do |path|
+        puts path
+      end
     end
 
   end

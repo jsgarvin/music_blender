@@ -1,11 +1,10 @@
 class CreateRootFolders < ActiveRecord::Migration
-  def up
+  def change
     create_table :root_folders do |t|
       t.column :path, :string, :null => false
-    end
-  end
 
-  def down
-    drop_table :root_folders
+      t.timestamps
+    end
+    add_index :root_folders, :path
   end
 end
