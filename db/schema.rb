@@ -12,8 +12,8 @@
 
 ActiveRecord::Schema.define(version: 1) do
 
-  create_table "tracks", force: true do |t|
-    t.string "name", null: false
+  create_table "root_folders", force: true do |t|
+    t.string "path", null: false
   end
 
 end
