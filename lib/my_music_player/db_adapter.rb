@@ -4,7 +4,10 @@ module MyMusicPlayer
 
     def initialize
       establish_db_connection
-      initialize_or_migrate_db
+    end
+
+    def spin_up
+      silence_stream(STDOUT)  { initialize_or_migrate_db }
       setup_db_log
     end
 
@@ -20,11 +23,15 @@ module MyMusicPlayer
     end
 
     def initialize_or_migrate_db
-      if File.exist?(path_to_db) or ! File.exist?(path_to_schema)
-        silence_stream(STDOUT)  { migrate_db }
+      if File.exist?(path_to_db)
+         migrate_db
       else
-        silence_stream(STDOUT) { initialize_db }
+        initialize_db
       end
+    end
+
+    def initialize_db
+      load(path_to_schema) #load and run schema.rb
     end
 
     def migrate_db
@@ -32,11 +39,6 @@ module MyMusicPlayer
       File.open(path_to_schema, 'w:utf-8') do |file|
         ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
       end
-    end
-
-    def initialize_db
-      load(path_to_schema) # <-- mystery `load` method gets polluted into
-                           #     global namespace by ActiveRecord.
     end
 
     def path_to_db
