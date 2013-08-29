@@ -3,9 +3,8 @@ module MyMusicPlayer
 
     def ls
       Array.new.tap do |files|
-        Find.find(music_path) do |file|
-          next if File.directory?(file)
-          files << relative_path(file)
+        Dir["#{music_path}/**/*.mp3"].each do |file_path|
+          files << relative_path(file_path)
         end
       end
     end

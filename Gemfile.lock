@@ -4,6 +4,7 @@ PATH
     mmp (0.0.1)
       activerecord
       sqlite3
+      taglib-ruby
 
 GEM
   remote: http://rubygems.org/
@@ -45,6 +46,7 @@ GEM
     simplecov-html (0.7.1)
     slop (3.4.4)
     sqlite3 (1.3.7)
+    taglib-ruby (0.6.0)
     thread_safe (0.1.2)
       atomic
     tzinfo (0.3.37)
