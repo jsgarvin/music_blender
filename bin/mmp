@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require File.expand_path('../../lib/my_music_player', __FILE__)
+require_relative '../lib/my_music_player'
 
-CONFIG = MyMusicPlayer::Configuration.new(music_path: ARGV.pop)
-MyMusicPlayer::Shell.new.run(*ARGV)
+MyMusicPlayer::CONFIG = MyMusicPlayer::Configuration.new(music_path: ARGV.pop)
+MyMusicPlayer::Bootstrap.new.call

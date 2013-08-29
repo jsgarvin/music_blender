@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency('activerecord')
   s.add_dependency('sqlite3')
+  s.add_dependency('taglib-ruby')
 
   s.add_development_dependency('mocha')
   s.add_development_dependency('pry')

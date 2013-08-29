@@ -31,11 +31,10 @@ module MyMusicPlayer
       @stdin, @stdout, @stderr, @wait_thread =
         Open3.popen3('mpg123 -R required_bogus_argument')
       Thread.new { monitor.run }
-      #Thread.new { monitor_player_output }
     end
 
     def play
-      stdin.puts "LOAD #{pick_a_song}"
+      stdin.puts "LOAD #{pick_a_song.full_path}"
     end
 
     def pause
@@ -59,11 +58,7 @@ module MyMusicPlayer
     #######
 
     def pick_a_song
-      scanner.ls.sample
-    end
-
-    def scanner
-      @scanner ||= Scanner.new
+      CONFIG.root_folder.tracks.sample
     end
 
     def monitor

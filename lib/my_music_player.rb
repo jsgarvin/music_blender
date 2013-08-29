@@ -4,15 +4,18 @@ require 'find'
 require 'io/wait'
 require 'singleton'
 require 'sqlite3'
+require 'taglib'
 require 'open3'
 
-require File.expand_path('../my_music_player/configuration', __FILE__)
-require File.expand_path('../my_music_player/db_adapter', __FILE__)
-require File.expand_path('../my_music_player/player', __FILE__)
-require File.expand_path('../my_music_player/player_monitor', __FILE__)
-require File.expand_path('../my_music_player/root_folder', __FILE__)
-require File.expand_path('../my_music_player/scanner', __FILE__)
-require File.expand_path('../my_music_player/shell', __FILE__)
+require_relative 'my_music_player/bootstrap'
+require_relative 'my_music_player/configuration'
+require_relative 'my_music_player/db_adapter'
+require_relative 'my_music_player/player'
+require_relative 'my_music_player/player_monitor'
+require_relative 'my_music_player/root_folder'
+require_relative 'my_music_player/scanner'
+require_relative 'my_music_player/shell'
+require_relative 'my_music_player/track'
 
 Thread.abort_on_exception = true
 
