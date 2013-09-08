@@ -3,6 +3,7 @@ require 'bundler/setup'
 require 'simplecov'
 #require 'fakefs/safe'
 require 'minitest/autorun'
+require 'factory_girl'
 require 'etc'
 require 'pry'
 
@@ -10,20 +11,41 @@ SimpleCov.start
 
 require 'my_music_player'
 
+FactoryGirl.find_definitions
 module MyMusicPlayer
+  CONFIG = 'mock_config'
+
   class MiniTest::Unit::TestCase
+    include FactoryGirl::Syntax::Methods
 
-    add_setup_hook { |test_case| test_case.initialize_environment }
-    add_setup_hook { |test_case| test_case.capture_stdout }
+    attr_reader :mock_id3_tag
 
-    #add_teardown_hook { |test_case| test_case.deactivate_fake_fs }
-    add_teardown_hook { |test_case| test_case.release_stdout }
+    ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
+    silence_stream(STDOUT)  { load("#{PLAYER_ROOT}/db/schema.rb") }
+
+    def before_setup
+      super
+      initialize_environment
+      capture_stdout
+    end
+
+    def after_teardown
+      super
+      release_stdout
+    end
 
     def initialize_environment
       music_path = File.expand_path('../music/', __FILE__)
       mock_config = mock('config')
       mock_config.stubs(:music_path).returns(music_path)
       Scanner.any_instance.stubs(:config).returns(mock_config)
+
+      mock_file = mock('file')
+      @mock_id3_tag = mock('id3_tag')
+      mock_id3_tag.stubs(:title => 'MockTag')
+      TagLib::MPEG::File.stubs(:new => mock_file)
+      mock_file.stubs(:id3v2_tag => mock_id3_tag)
+
       #FakeFS.activate!
     end
 

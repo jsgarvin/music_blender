@@ -2,6 +2,7 @@ module MyMusicPlayer
   class Bootstrap
 
     def call
+      spin_up_db
       load_new_tracks
       launch_shell
     end
@@ -10,18 +11,20 @@ module MyMusicPlayer
     private
     #######
 
+    def spin_up_db
+      DbAdapter.new.spin_up
+    end
+
     def load_new_tracks
-      Scanner.new.ls.each do |relative_path|
-        config.root_folder.tracks.find_or_create_by(:relative_path => relative_path)
-      end
+      config.root_folder.load_new_tracks(Scanner.new.ls)
     end
 
     def launch_shell
-      MyMusicPlayer::Shell.new.run(*ARGV)
+      Shell.new.run(*ARGV)
     end
 
     def config
-      MyMusicPlayer::CONFIG
+      CONFIG
     end
 
   end

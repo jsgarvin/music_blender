@@ -34,7 +34,7 @@ module MyMusicPlayer
     end
 
     def play
-      stdin.puts "LOAD #{pick_a_song.full_path}"
+      stdin.puts "LOAD #{pick_a_track.full_path}"
     end
 
     def pause
@@ -57,12 +57,16 @@ module MyMusicPlayer
     private
     #######
 
-    def pick_a_song
-      CONFIG.root_folder.tracks.sample
+    def pick_a_track
+      config.root_folder.pick_a_track #tracks.sample
     end
 
     def monitor
       @monitor ||= PlayerMonitor.new(self)
+    end
+
+    def config
+      CONFIG
     end
 
   end

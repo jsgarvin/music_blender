@@ -2,11 +2,8 @@ module MyMusicPlayer
   class DbAdapter
     attr_reader :connection
 
-    def initialize
-      establish_db_connection
-    end
-
     def spin_up
+      establish_db_connection
       silence_stream(STDOUT)  { initialize_or_migrate_db }
       setup_db_log
     end

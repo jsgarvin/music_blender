@@ -14,10 +14,11 @@ Gem::Specification.new do |s|
   s.add_dependency('sqlite3')
   s.add_dependency('taglib-ruby')
 
+  s.add_development_dependency('factory_girl')
+  s.add_development_dependency('fakefs')
   s.add_development_dependency('mocha')
   s.add_development_dependency('pry')
   s.add_development_dependency('simplecov')
-  s.add_development_dependency('fakefs')
 
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- test/*`.split("\n")
