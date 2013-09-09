@@ -2,12 +2,11 @@ require 'test_helper'
 
 module MyMusicPlayer
   class BootstrapTest < MiniTest::Unit::TestCase
-    attr_reader :bootstrap, :mock_config, :mock_shell
+    attr_reader :bootstrap, :mock_shell
 
     def setup
       @bootstrap = Bootstrap.new
-      @mock_config = mock('config')
-      @bootstrap.stubs(:config).returns(@mock_config)
+      @bootstrap.stubs(:config).returns(mock_config)
       @mock_shell = mock('shell')
       Shell.stubs(:new).returns(@mock_shell)
     end

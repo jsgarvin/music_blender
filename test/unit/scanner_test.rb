@@ -6,6 +6,7 @@ module MyMusicPlayer
 
     def setup
       @scanner = Scanner.new
+      @scanner.stubs(:config).returns(mock_config)
     end
 
     def test_should_find_files_in_music_folder
@@ -15,7 +16,7 @@ module MyMusicPlayer
     end
 
     def test_config
-      Scanner.any_instance.unstub(:config)
+      scanner.unstub(:config)
       assert_equal(CONFIG,scanner.send(:config))
     end
 

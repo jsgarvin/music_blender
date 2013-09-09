@@ -18,14 +18,13 @@ module MyMusicPlayer
   class MiniTest::Unit::TestCase
     include FactoryGirl::Syntax::Methods
 
-    attr_reader :mock_id3_tag
+    attr_reader :mock_config, :mock_id3_tag
 
     ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
     silence_stream(STDOUT)  { load("#{PLAYER_ROOT}/db/schema.rb") }
 
     def before_setup
       super
-      initialize_environment
       capture_stdout
     end
 
@@ -35,18 +34,14 @@ module MyMusicPlayer
     end
 
     def initialize_environment
-      music_path = File.expand_path('../music/', __FILE__)
-      mock_config = mock('config')
-      mock_config.stubs(:music_path).returns(music_path)
-      Scanner.any_instance.stubs(:config).returns(mock_config)
-
-      mock_file = mock('file')
-      @mock_id3_tag = mock('id3_tag')
-      mock_id3_tag.stubs(:title => 'MockTag')
-      TagLib::MPEG::File.stubs(:new => mock_file)
-      mock_file.stubs(:id3v2_tag => mock_id3_tag)
-
       #FakeFS.activate!
+    end
+
+    def mock_config
+      @mock_config ||= mock('config').tap do |mock_config|
+        music_path = File.expand_path('../music/', __FILE__)
+        mock_config.stubs(:music_path).returns(music_path)
+      end
     end
 
     def deactivate_fake_fs

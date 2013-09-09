@@ -6,9 +6,9 @@ module MyMusicPlayer
 
     def setup
       mock_connection = mock('db_connection')
-      ActiveRecord::Base.expects(:establish_connection).returns(mock_connection)
+      ActiveRecord::Base.stubs(:establish_connection).returns(mock_connection)
       ActiveRecord::Base.stubs(:connection).returns(mock_connection)
-      ActiveRecord::Base.expects('logger').returns(true)
+      ActiveRecord::Base.stubs('logger').returns(true)
       @db_adapter = DbAdapter.new
     end
 
