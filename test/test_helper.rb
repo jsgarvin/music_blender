@@ -6,6 +6,7 @@ require 'minitest/autorun'
 require 'factory_girl'
 require 'etc'
 require 'pry'
+require 'assert_difference'
 
 SimpleCov.start
 
@@ -16,6 +17,7 @@ module MyMusicPlayer
   CONFIG = 'mock_config'
 
   class MiniTest::Unit::TestCase
+    include AssertDifference
     include FactoryGirl::Syntax::Methods
 
     attr_reader :mock_config, :mock_id3_tag

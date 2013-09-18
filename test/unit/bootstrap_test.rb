@@ -15,6 +15,7 @@ module MyMusicPlayer
       DbAdapter.any_instance.expects(:spin_up)
       Scanner.any_instance.expects(:ls).returns([1])
       mock_root_folder = mock('root_folder')
+      mock_root_folder.responds_like(RootFolder.new)
       mock_config.expects(:root_folder).returns(mock_root_folder)
       mock_root_folder.expects(:load_new_tracks)
       mock_shell.expects(:run)

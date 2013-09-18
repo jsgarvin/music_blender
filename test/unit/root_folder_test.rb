@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'ostruct'
 
 module MyMusicPlayer
   class RootFolderTest < MiniTest::Unit::TestCase
@@ -10,6 +11,14 @@ module MyMusicPlayer
 
     def test_pick_a_track
       assert(root_folder.tracks.include?(root_folder.pick_a_track))
+    end
+
+    def test_load_new_tracks
+      Track.any_instance.stubs(:id3_tag => OpenStruct.new(:title => 'x'))
+      create(:track, :root_folder => root_folder, :relative_path => 'a')
+      assert_difference('Track.count' => 2) do
+        root_folder.load_new_tracks(['a','b','c'])
+      end
     end
   end
 end

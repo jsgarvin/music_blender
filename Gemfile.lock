@@ -25,6 +25,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.0)
+    assert_difference (0.5.0)
     atomic (1.1.13)
     builder (3.1.4)
     coderay (1.0.9)
@@ -57,6 +58,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  assert_difference
   factory_girl
   fakefs
   mmp!
