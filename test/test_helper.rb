@@ -41,6 +41,7 @@ module MyMusicPlayer
 
     def mock_config
       @mock_config ||= mock('config').tap do |mock_config|
+        mock_config.responds_like_instance_of(Configuration)
         music_path = File.expand_path('../music/', __FILE__)
         mock_config.stubs(:music_path).returns(music_path)
       end
