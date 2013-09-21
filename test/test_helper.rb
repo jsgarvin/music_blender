@@ -14,7 +14,7 @@ require 'my_music_player'
 
 FactoryGirl.find_definitions
 module MyMusicPlayer
-  CONFIG = 'mock_config'
+  ROOT_FOLDER = 'mock_root_folder'
 
   class MiniTest::Unit::TestCase
     include AssertDifference
@@ -28,6 +28,7 @@ module MyMusicPlayer
     def before_setup
       super
       capture_stdout
+      Track.any_instance.stubs(:persist_rating_to_id3_tag)
     end
 
     def after_teardown
@@ -39,11 +40,11 @@ module MyMusicPlayer
       #FakeFS.activate!
     end
 
-    def mock_config
-      @mock_config ||= mock('config').tap do |mock_config|
-        mock_config.responds_like_instance_of(Configuration)
+    def mock_root_folder
+      @mock_root_folder ||= mock('root_folder').tap do |mock_root_folder|
+        mock_root_folder.responds_like(RootFolder.new)
         music_path = File.expand_path('../music/', __FILE__)
-        mock_config.stubs(:music_path).returns(music_path)
+        mock_root_folder.stubs(:path).returns(music_path)
       end
     end
 

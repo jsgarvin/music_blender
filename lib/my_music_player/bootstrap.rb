@@ -16,15 +16,15 @@ module MyMusicPlayer
     end
 
     def load_new_tracks
-      config.root_folder.load_new_tracks(Scanner.new.ls)
+      root_folder.load_new_tracks
     end
 
     def launch_shell
       Shell.new.run(*ARGV)
     end
 
-    def config
-      CONFIG
+    def root_folder
+      ROOT_FOLDER
     end
 
   end

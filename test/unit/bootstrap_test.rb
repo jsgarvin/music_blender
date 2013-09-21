@@ -6,25 +6,21 @@ module MyMusicPlayer
 
     def setup
       @bootstrap = Bootstrap.new
-      @bootstrap.stubs(:config).returns(mock_config)
+      @bootstrap.stubs(:root_folder).returns(mock_root_folder)
       @mock_shell = mock('shell')
       Shell.stubs(:new).returns(@mock_shell)
     end
 
     def test_call
       DbAdapter.any_instance.expects(:spin_up)
-      Scanner.any_instance.expects(:ls).returns([1])
-      mock_root_folder = mock('root_folder')
-      mock_root_folder.responds_like(RootFolder.new)
-      mock_config.expects(:root_folder).returns(mock_root_folder)
       mock_root_folder.expects(:load_new_tracks)
       mock_shell.expects(:run)
       bootstrap.call
     end
 
     def test_config
-      bootstrap.unstub(:config)
-      assert_equal(CONFIG,bootstrap.send(:config))
+      bootstrap.unstub(:root_folder)
+      assert_equal(ROOT_FOLDER,bootstrap.send(:root_folder))
     end
 
   end

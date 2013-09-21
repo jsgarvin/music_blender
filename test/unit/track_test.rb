@@ -26,19 +26,19 @@ module MyMusicPlayer
     end
 
     describe 'saving rating to id3 tag on update' do
-
       before do
-        @track = create(:track)
-        @mock_id3_tag_file = mock('rating_frame')
+        Track.any_instance.unstub(:persist_rating_to_id3_tag)
+        @mock_id3_tag_file = mock('tag_file')
         @mock_rating_frame = mock('rating_frame')
-        @track.stubs(:rating_frame).returns(@mock_rating_frame)
-        @track.stubs(:id3_tag_file).returns(@mock_id3_tag_file)
+        Track.any_instance.stubs(:rating_frame).returns(@mock_rating_frame)
+        Track.any_instance.stubs(:id3_tag_file).returns(@mock_id3_tag_file)
+        @track = create(:track)
       end
 
       def test_saves_rating_to_id3_tag
-        @mock_rating_frame.expects('text=').with(42)
+        @mock_rating_frame.expects('text=').with('42')
         @mock_id3_tag_file.expects(:save)
-        @track.update_attributes(:rating => 42)
+        @track.update_attribute(:rating,42)
       end
     end
   end

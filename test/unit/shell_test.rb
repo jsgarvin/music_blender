@@ -9,9 +9,6 @@ module MyMusicPlayer
       @mock_player.expects(:stop)
       @mock_player.expects(:quit)
       Player.stubs(:new).returns(@mock_player)
-
-      @mock_scanner = mock('scanner')
-      Scanner.stubs(:new).returns(@mock_scanner)
     end
 
     def test_execute_a_command_and_exit
@@ -25,13 +22,6 @@ module MyMusicPlayer
       assert_equal('',$stdout.string)
       Shell.new.run(:ping)
       assert_match(/Unrecognized Command: ping/,$stdout.string)
-    end
-
-    def test_execute_ls
-      mock_scanner.expects(:ls).returns(['foo','bar'])
-      Shell.new.run(:ls)
-      assert_match(/foo/,$stdout.string)
-      assert_match(/bar/,$stdout.string)
     end
 
     def test_execute_info

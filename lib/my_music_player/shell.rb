@@ -21,12 +21,6 @@ module MyMusicPlayer
       puts "Exiting..."
     end
 
-    def _mmp_ls
-      scanner.ls.each do |file|
-        puts file
-      end
-    end
-
     def _mmp_play
       player.play
     end
@@ -63,10 +57,6 @@ module MyMusicPlayer
     #######
     private
     #######
-
-    def scanner
-      @scanner ||= Scanner.new
-    end
 
     def player
       @player ||= Player.new

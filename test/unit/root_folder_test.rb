@@ -15,9 +15,11 @@ module MyMusicPlayer
 
     def test_load_new_tracks
       Track.any_instance.stubs(:id3_tag => OpenStruct.new(:title => 'x'))
+      root_folder.stubs(:relative_paths => ['a','b','c'])
       create(:track, :root_folder => root_folder, :relative_path => 'a')
+      release_stdout
       assert_difference('Track.count' => 2) do
-        root_folder.load_new_tracks(['a','b','c'])
+        root_folder.load_new_tracks
       end
     end
   end
