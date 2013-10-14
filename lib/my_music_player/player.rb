@@ -29,7 +29,7 @@ module MyMusicPlayer
 
     def initialize
       @stdin, @stdout, @stderr, @wait_thread =
-        Open3.popen3('mpg123 -R required_bogus_argument')
+        Open3.popen3('mpg123 --rva-mix -R')
       Thread.new { monitor.run }
     end
 
@@ -66,7 +66,7 @@ module MyMusicPlayer
     end
 
     def root_folder
-      ROOT_FOLDER
+      RootFolder.current
     end
 
   end

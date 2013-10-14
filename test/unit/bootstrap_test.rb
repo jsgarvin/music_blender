@@ -6,7 +6,6 @@ module MyMusicPlayer
 
     def setup
       @bootstrap = Bootstrap.new
-      @bootstrap.stubs(:root_folder).returns(mock_root_folder)
       @mock_shell = mock('shell')
       Shell.stubs(:new).returns(@mock_shell)
     end
@@ -19,8 +18,7 @@ module MyMusicPlayer
     end
 
     def test_config
-      bootstrap.unstub(:root_folder)
-      assert_equal(ROOT_FOLDER,bootstrap.send(:root_folder))
+      assert_equal(mock_root_folder,bootstrap.send(:root_folder))
     end
 
   end

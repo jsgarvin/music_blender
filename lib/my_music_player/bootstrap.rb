@@ -24,7 +24,7 @@ module MyMusicPlayer
     end
 
     def root_folder
-      ROOT_FOLDER
+      RootFolder.current
     end
 
   end

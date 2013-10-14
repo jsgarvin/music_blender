@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'simplecov'
-#require 'fakefs/safe'
 require 'minitest/autorun'
 require 'factory_girl'
 require 'etc'
@@ -28,6 +27,7 @@ module MyMusicPlayer
     def before_setup
       super
       capture_stdout
+      RootFolder.stubs(:current).returns(mock_root_folder)
       Track.any_instance.stubs(:persist_rating_to_id3_tag)
     end
 
@@ -36,20 +36,12 @@ module MyMusicPlayer
       release_stdout
     end
 
-    def initialize_environment
-      #FakeFS.activate!
-    end
-
     def mock_root_folder
       @mock_root_folder ||= mock('root_folder').tap do |mock_root_folder|
         mock_root_folder.responds_like(RootFolder.new)
         music_path = File.expand_path('../music/', __FILE__)
         mock_root_folder.stubs(:path).returns(music_path)
       end
-    end
-
-    def deactivate_fake_fs
-      #FakeFS.deactivate!
     end
 
     #Capture STDOUT from program for testing and not cluttering test output

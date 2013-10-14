@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 require_relative '../lib/my_music_player'
 
-MyMusicPlayer::ROOT_FOLDER = MyMusicPlayer::RootFolder.find_or_create_by(path: ARGV.pop)
+MyMusicPlayer::MUSIC_PATH = ARGV.pop
 MyMusicPlayer::Bootstrap.new.call

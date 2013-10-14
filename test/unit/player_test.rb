@@ -59,8 +59,7 @@ module MyMusicPlayer
     end
 
     def test_config
-      player.unstub(:root_folder)
-      assert_equal(ROOT_FOLDER,player.send(:root_folder))
+      assert_equal(mock_root_folder,player.send(:root_folder))
     end
 
   end

@@ -5,6 +5,7 @@ module MyMusicPlayer
     attr_reader :track
 
     def setup
+      Track.any_instance.stubs(:rating_frame => OpenStruct.new(:text => '5'))
       @track = create(:track)
     end
 
@@ -28,8 +29,10 @@ module MyMusicPlayer
     describe 'saving rating to id3 tag on update' do
       before do
         Track.any_instance.unstub(:persist_rating_to_id3_tag)
+        Track.any_instance.unstub(:rating_frame)
         @mock_id3_tag_file = mock('tag_file')
         @mock_rating_frame = mock('rating_frame')
+        @mock_rating_frame.stubs(:text => '3')
         Track.any_instance.stubs(:rating_frame).returns(@mock_rating_frame)
         Track.any_instance.stubs(:id3_tag_file).returns(@mock_id3_tag_file)
         @track = create(:track)

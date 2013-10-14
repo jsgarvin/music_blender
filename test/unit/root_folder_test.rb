@@ -6,6 +6,7 @@ module MyMusicPlayer
     attr_reader :root_folder
 
     def setup
+      Track.any_instance.stubs(:rating_frame => OpenStruct.new(:text => '5'))
       @root_folder = create(:root_folder_with_tracks)
     end
 
