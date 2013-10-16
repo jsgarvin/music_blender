@@ -19,7 +19,7 @@ module MyMusicPlayer
       :stop_pause_status
     ]
 
-    attr_reader :stdin, :stdout, :stderr
+    attr_reader :current_track, :stdin, :stdout, :stderr
 
     METHODS_DELEGATED_TO_MONITOR.each do |delegated_method_name|
       define_method(delegated_method_name) do
@@ -58,7 +58,7 @@ module MyMusicPlayer
     #######
 
     def pick_a_track
-      music_folder.pick_a_track #tracks.sample
+      @current_track = music_folder.pick_a_track
     end
 
     def monitor

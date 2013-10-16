@@ -15,13 +15,6 @@ module MyMusicPlayer
       "#{music_folder.path}/#{relative_path}"
     end
 
-    #def rating
-    #  # Actually... put move this (somehow) to import_id3_tag_attributes
-    #  # so that it automatically runs when last_played_at gets updated.
-    #  #resolve_rating_conflict unless rating_frame.text.to_i == self[:rating]
-    #  return self[:rating]
-    #end
-
     #######
     private
     #######
