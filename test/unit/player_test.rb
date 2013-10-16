@@ -20,10 +20,10 @@ module MyMusicPlayer
 
     def test_should_load_a_song
       mock_track = mock('track')
-      mock_root_folder = mock('root_folder')
-      mock_root_folder.expects(:pick_a_track).returns(mock_track)
+      mock_music_folder = mock('music_folder')
+      mock_music_folder.expects(:pick_a_track).returns(mock_track)
       mock_track.expects(:full_path).returns('/full/path')
-      player.expects(:root_folder).returns(mock_root_folder)
+      player.expects(:music_folder).returns(mock_music_folder)
       mock_stdin.expects(:puts).with(regexp_matches(/^LOAD \/full\/path/))
 
       player.play
@@ -59,7 +59,7 @@ module MyMusicPlayer
     end
 
     def test_config
-      assert_equal(mock_root_folder,player.send(:root_folder))
+      assert_equal(mock_music_folder,player.send(:music_folder))
     end
 
   end

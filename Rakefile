@@ -12,13 +12,14 @@ end
 
 desc "Migrate the database through scripts in db/migrate. Target specific version with VERSION=x"
 task :migrate => :environment do
-  ActiveRecord::Migrator.migrate('db/migrate', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
-  File.open("#{MyMusicPlayer::PLAYER_ROOT}/db/schema.rb", 'w') do |file|
-    ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
-  end
+  dba.migrate_db
 end
 
 task :environment do
-  @dba = MyMusicPlayer::DbAdapter.new
+  dba.establish_connection
+end
+
+def dba
+  @dba ||= MyMusicPlayer::DbAdapter.new
 end
 

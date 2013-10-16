@@ -12,13 +12,13 @@ module MyMusicPlayer
 
     def test_call
       DbAdapter.any_instance.expects(:spin_up)
-      mock_root_folder.expects(:load_new_tracks)
+      mock_music_folder.expects(:load_new_tracks)
       mock_shell.expects(:run)
       bootstrap.call
     end
 
     def test_config
-      assert_equal(mock_root_folder,bootstrap.send(:root_folder))
+      assert_equal(mock_music_folder,bootstrap.send(:music_folder))
     end
 
   end

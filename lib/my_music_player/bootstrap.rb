@@ -16,15 +16,15 @@ module MyMusicPlayer
     end
 
     def load_new_tracks
-      root_folder.load_new_tracks
+      music_folder.load_new_tracks
     end
 
     def launch_shell
       Shell.new.run(*ARGV)
     end
 
-    def root_folder
-      RootFolder.current
+    def music_folder
+      MusicFolder.current
     end
 
   end

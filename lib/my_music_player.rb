@@ -9,9 +9,9 @@ require 'open3'
 
 require_relative 'my_music_player/bootstrap'
 require_relative 'my_music_player/db_adapter'
+require_relative 'my_music_player/music_folder'
 require_relative 'my_music_player/player'
 require_relative 'my_music_player/player_monitor'
-require_relative 'my_music_player/root_folder'
 require_relative 'my_music_player/shell'
 require_relative 'my_music_player/track'
 

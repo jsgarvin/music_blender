@@ -14,14 +14,14 @@ module MyMusicPlayer
     end
 
     describe 'loading title from taglib on create' do
-      attr_reader :root_folder
+      attr_reader :music_folder
 
       before do
-        @root_folder = create(:root_folder, :path => "#{PLAYER_ROOT}/test/music")
+        @music_folder = create(:music_folder, :path => "#{PLAYER_ROOT}/test/music")
       end
 
       def test_loads_title_id3_tag
-        track = root_folder.tracks.create(:relative_path => 'point1sec.mp3')
+        track = music_folder.tracks.create(:relative_path => 'point1sec.mp3')
         assert_equal('Silent MP3 10th-of-a-sec',track.title)
       end
     end

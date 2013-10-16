@@ -11,27 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 3) do
 
-  create_table "root_folders", force: true do |t|
+  create_table "music_folders", force: true do |t|
     t.string   "path",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "root_folders", ["path"], name: "index_root_folders_on_path"
+  add_index "music_folders", ["path"], name: "index_music_folders_on_path"
 
   create_table "tracks", force: true do |t|
-    t.string   "relative_path",  null: false
+    t.string   "relative_path",   null: false
     t.datetime "last_played_at"
     t.integer  "rating"
     t.string   "title"
-    t.integer  "root_folder_id"
+    t.integer  "music_folder_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "tracks", ["root_folder_id", "last_played_at"], name: "index_tracks_on_root_folder_id_and_last_played_at"
-  add_index "tracks", ["root_folder_id", "relative_path"], name: "index_tracks_on_root_folder_id_and_relative_path"
+  add_index "tracks", ["music_folder_id", "last_played_at"], name: "index_tracks_on_music_folder_id_and_last_played_at"
+  add_index "tracks", ["music_folder_id", "relative_path"], name: "index_tracks_on_music_folder_id_and_relative_path"
 
 end

@@ -2,17 +2,17 @@ module MyMusicPlayer
   class Track < ActiveRecord::Base
     RATING_FRAME_DESCRIPTION = 'MMP Rating'
 
-    validates_uniqueness_of :relative_path, :scope => :root_folder_id
+    validates_uniqueness_of :relative_path, :scope => :music_folder_id
     validates_numericality_of :rating, :greater_than => 0, :only_integer => true
 
     before_validation :import_id3_tag_attributes
 
     after_update :persist_rating_to_id3_tag, :if => :rating_changed?
 
-    belongs_to :root_folder
+    belongs_to :music_folder
 
     def full_path
-      "#{root_folder.path}/#{relative_path}"
+      "#{music_folder.path}/#{relative_path}"
     end
 
     #def rating

@@ -58,15 +58,15 @@ module MyMusicPlayer
     #######
 
     def pick_a_track
-      root_folder.pick_a_track #tracks.sample
+      music_folder.pick_a_track #tracks.sample
     end
 
     def monitor
       @monitor ||= PlayerMonitor.new(self)
     end
 
-    def root_folder
-      RootFolder.current
+    def music_folder
+      MusicFolder.current
     end
 
   end

@@ -3,21 +3,28 @@ module MyMusicPlayer
     attr_reader :connection
 
     def spin_up
-      establish_db_connection
+      establish_connection
       silence_stream(STDOUT)  { initialize_or_migrate_db }
       setup_db_log
     end
 
-    #######
-    private
-    #######
-
-    def establish_db_connection
+    def establish_connection
       @connection ||= ActiveRecord::Base.establish_connection(
         :adapter => 'sqlite3',
         :database => path_to_db
       )
     end
+
+    def migrate_db
+      ActiveRecord::Migrator.migrate('db/migrate', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
+      File.open(path_to_schema, 'w:utf-8') do |file|
+        ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
+      end
+    end
+
+    #######
+    private
+    #######
 
     def initialize_or_migrate_db
       if File.exist?(path_to_db)
@@ -29,13 +36,6 @@ module MyMusicPlayer
 
     def initialize_db
       load(path_to_schema) #load and run schema.rb
-    end
-
-    def migrate_db
-      ActiveRecord::Migrator.migrate('db/migrate', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
-      File.open(path_to_schema, 'w:utf-8') do |file|
-        ActiveRecord::SchemaDumper.dump(ActiveRecord::Base.connection, file)
-      end
     end
 
     def path_to_db

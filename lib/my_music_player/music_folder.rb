@@ -1,10 +1,10 @@
 module MyMusicPlayer
-  class RootFolder < ActiveRecord::Base
+  class MusicFolder < ActiveRecord::Base
     has_many :tracks
 
     class << self
       def current
-        @current ||= RootFolder.find_or_create_by(path: MUSIC_PATH)
+        @current ||= MusicFolder.find_or_create_by(path: MUSIC_PATH)
       end
     end
 

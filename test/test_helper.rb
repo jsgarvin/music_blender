@@ -13,7 +13,7 @@ require 'my_music_player'
 
 FactoryGirl.find_definitions
 module MyMusicPlayer
-  ROOT_FOLDER = 'mock_root_folder'
+  MUSIC_FOLDER = 'mock_music_folder'
 
   class MiniTest::Unit::TestCase
     include AssertDifference
@@ -27,7 +27,7 @@ module MyMusicPlayer
     def before_setup
       super
       capture_stdout
-      RootFolder.stubs(:current).returns(mock_root_folder)
+      MusicFolder.stubs(:current).returns(mock_music_folder)
       Track.any_instance.stubs(:persist_rating_to_id3_tag)
     end
 
@@ -36,11 +36,11 @@ module MyMusicPlayer
       release_stdout
     end
 
-    def mock_root_folder
-      @mock_root_folder ||= mock('root_folder').tap do |mock_root_folder|
-        mock_root_folder.responds_like(RootFolder.new)
+    def mock_music_folder
+      @mock_music_folder ||= mock('music_folder').tap do |mock_music_folder|
+        mock_music_folder.responds_like(MusicFolder.new)
         music_path = File.expand_path('../music/', __FILE__)
-        mock_root_folder.stubs(:path).returns(music_path)
+        mock_music_folder.stubs(:path).returns(music_path)
       end
     end
 
