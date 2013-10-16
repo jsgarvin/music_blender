@@ -13,16 +13,31 @@ module MyMusicPlayer
       assert_kind_of(String,track.full_path)
     end
 
-    describe 'loading title from taglib on create' do
+    describe 'loading attributes from taglib on create' do
       attr_reader :music_folder
 
       before do
         @music_folder = create(:music_folder, :path => "#{PLAYER_ROOT}/test/music")
       end
 
-      def test_loads_title_id3_tag
-        track = music_folder.tracks.create(:relative_path => 'point1sec.mp3')
-        assert_equal('Silent MP3 10th-of-a-sec',track.title)
+      describe 'loading artist' do
+
+        def test_loads_and_creates_artist
+          assert_difference('Artist.count') do
+            track = music_folder.tracks.create(:relative_path => 'point1sec.mp3')
+            assert_equal('DefBeats',track.artist.name)
+          end
+        end
+
+      end
+
+      describe 'loading title' do
+
+        def test_loads_title_id3_tag
+          track = music_folder.tracks.create(:relative_path => 'point1sec.mp3')
+          assert_equal('Silent MP3 10th-of-a-sec',track.title)
+        end
+
       end
     end
 

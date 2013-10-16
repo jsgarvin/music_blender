@@ -10,9 +10,11 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = true
 end
 
-desc "Migrate the database through scripts in db/migrate. Target specific version with VERSION=x"
-task :migrate => :environment do
-  dba.migrate_db
+namespace :db do
+  desc "Migrate the database through scripts in db/migrate. Target specific version with VERSION=x"
+  task :migrate => :environment do
+    dba.migrate_db
+  end
 end
 
 task :environment do

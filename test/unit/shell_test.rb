@@ -25,7 +25,10 @@ module MyMusicPlayer
     end
 
     def test_execute_info
-      mock_player.expects(:song_name)
+      #TODO: way too much mocking in here. find a better way.
+      mock_track = mock('track')
+      mock_track.expects(:title => 'Foobar')
+      mock_player.expects(:current_track => mock_track)
       mock_player.expects(:status_string)
       mock_player.expects(:seconds)
       mock_player.expects(:seconds_remaining)

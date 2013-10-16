@@ -7,6 +7,7 @@ require 'sqlite3'
 require 'taglib'
 require 'open3'
 
+require_relative 'my_music_player/artist'
 require_relative 'my_music_player/bootstrap'
 require_relative 'my_music_player/db_adapter'
 require_relative 'my_music_player/music_folder'

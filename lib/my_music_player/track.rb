@@ -9,6 +9,7 @@ module MyMusicPlayer
 
     after_update :persist_rating_to_id3_tag, :if => :rating_changed?
 
+    belongs_to :artist
     belongs_to :music_folder
 
     def full_path
@@ -29,6 +30,7 @@ module MyMusicPlayer
 
     def import_id3_tag_attributes
       self.title ||= id3_tag.title
+      self.artist ||= Artist.find_or_create_by(:name => id3_tag.artist)
       self.rating = rating_frame.text
     end
 
