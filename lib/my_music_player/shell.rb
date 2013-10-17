@@ -34,8 +34,10 @@ module MyMusicPlayer
     end
 
     def _mmp_info
+      puts player.current_track.full_path
       puts player.current_track.title
-      puts player.status_string
+      puts player.current_track.artist.name
+      puts player.current_track.rating
       puts "Seconds: #{player.seconds} (#{player.seconds_remaining})"
     end
 

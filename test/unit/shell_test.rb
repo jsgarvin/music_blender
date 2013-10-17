@@ -27,9 +27,8 @@ module MyMusicPlayer
     def test_execute_info
       #TODO: way too much mocking in here. find a better way.
       mock_track = mock('track')
-      mock_track.expects(:title => 'Foobar')
-      mock_player.expects(:current_track => mock_track)
-      mock_player.expects(:status_string)
+      mock_track.expects(:title => 'Foobar', :full_path => '/some/path', :artist => OpenStruct.new(:name => 'Foobar'), :rating => 4)
+      mock_player.stubs(:current_track => mock_track)
       mock_player.expects(:seconds)
       mock_player.expects(:seconds_remaining)
       assert_equal('',$stdout.string)

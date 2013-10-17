@@ -7,6 +7,9 @@ module MyMusicPlayer
 
     def setup
       Track.any_instance.stubs(:rating_frame => OpenStruct.new(:text => '5'))
+      @mock_id3_tag = mock('tag')
+      @mock_id3_tag.stubs(:title => 'Foo', :artist => 'Bar')
+      Track.any_instance.stubs(:id3_tag => @mock_id3_tag)
       @music_folder = create(:music_folder_with_tracks)
     end
 

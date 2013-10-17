@@ -14,7 +14,8 @@ module MyMusicPlayer
 
     def load_new_tracks
       relative_paths.each do |relative_path|
-        tracks.find_or_create_by(:relative_path => relative_path)
+        track = tracks.find_or_create_by(:relative_path => relative_path)
+        track.import_id3_tag_attributes!
       end
     end
 
