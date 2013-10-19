@@ -34,6 +34,7 @@ module MyMusicPlayer
     end
 
     def play
+      set_current_track_last_played_at
       stdin.puts "LOAD #{pick_a_track.full_path}"
     end
 
@@ -56,6 +57,12 @@ module MyMusicPlayer
     #######
     private
     #######
+
+    def set_current_track_last_played_at
+      if current_track
+        current_track.update_column(:last_played_at, Time.now)
+      end
+    end
 
     def pick_a_track
       @current_track = music_folder.pick_a_track

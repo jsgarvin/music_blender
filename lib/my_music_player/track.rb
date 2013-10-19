@@ -12,6 +12,8 @@ module MyMusicPlayer
     belongs_to :artist
     belongs_to :music_folder
 
+    scope :by_weighted_random, ->() { select(%q{*, (((strftime('%s','now') - strftime('%s', ifnull(last_played_at,created_at)))/2592000)+1)*rating*abs(random()) AS weighted_random}).order('weighted_random') }
+
     def full_path
       "#{music_folder.path}/#{relative_path}"
     end

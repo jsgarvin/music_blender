@@ -9,7 +9,7 @@ module MyMusicPlayer
     end
 
     def pick_a_track
-      tracks.sample
+      tracks.by_weighted_random.last
     end
 
     def load_new_tracks
