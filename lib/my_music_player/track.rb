@@ -5,7 +5,7 @@ module MyMusicPlayer
     validates_uniqueness_of :relative_path, :scope => :music_folder_id
     validates_numericality_of :rating, :greater_than => 0, :only_integer => true
 
-    before_validation :import_id3_tag_attributes!, :on => :create
+    before_validation :import_id3_tag_attributes, :on => :create
 
     before_save :persist_rating_to_id3_tag, :on => :update, :if => :rating_changed?
 
@@ -17,15 +17,19 @@ module MyMusicPlayer
     end
 
     def import_id3_tag_attributes!
-      self.title = id3_title
-      self.artist = Artist.find_or_create_by(:name => id3_artist)
-      self.rating = rating_frame.text
+      import_id3_tag_attributes
       save
     end
 
     #######
     private
     #######
+
+    def import_id3_tag_attributes
+      self.title = id3_title
+      self.artist = Artist.find_or_create_by(:name => id3_artist)
+      self.rating = rating_frame.text
+    end
 
     def id3_title
       id3v2_tag.title || id3v1_tag.title
