@@ -34,6 +34,12 @@ module MyMusicPlayer
       elsif line.match(/^@P ([0-3])/)
         process_stop_pause_status($1.to_i)
       end
+    rescue Exception => e
+      logger.error("Monitor failed to process line: #{line}")
+      logger.error("Exception -> #{e.class}: #{e.message}.")
+      e.backtrace.each do |backtrace_line|
+        logger.error(backtrace_line)
+      end
     end
 
     def process_frame_message(message)
@@ -64,5 +70,8 @@ module MyMusicPlayer
       player.play
     end
 
+    def logger
+      player.logger
+    end
   end
 end

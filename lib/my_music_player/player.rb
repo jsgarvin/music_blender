@@ -6,7 +6,6 @@ module MyMusicPlayer
       0 => 'Stopped',
       1 => 'Paused',
       2 => 'Resumed',
-      3 => 'Ended'
     }
 
     METHODS_DELEGATED_TO_MONITOR = [
@@ -19,7 +18,7 @@ module MyMusicPlayer
       :stop_pause_status
     ]
 
-    attr_reader :current_track, :stdin, :stdout, :stderr
+    attr_reader :current_track, :logger, :stdin, :stdout, :stderr
 
     METHODS_DELEGATED_TO_MONITOR.each do |delegated_method_name|
       define_method(delegated_method_name) do
@@ -30,6 +29,7 @@ module MyMusicPlayer
     def initialize
       @stdin, @stdout, @stderr, @wait_thread =
         Open3.popen3('mpg123 --rva-mix -R')
+      @logger = Logger.new("#{PLAYER_ROOT}/log/player.log",'daily')
       Thread.new { monitor.run }
     end
 
@@ -79,8 +79,5 @@ module MyMusicPlayer
       MusicFolder.current
     end
 
-    def logger
-      @logger ||= Logger.new("#{PLAYER_ROOT}/log/player.log",'daily')
-    end
   end
 end
