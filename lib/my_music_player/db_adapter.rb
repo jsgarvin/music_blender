@@ -47,7 +47,7 @@ module MyMusicPlayer
     end
 
     def setup_db_log
-      ActiveRecord::Base.logger ||= Logger.new(File.open("#{PLAYER_ROOT}/log/database.log", 'a'))
+      ActiveRecord::Base.logger ||= Logger.new("#{PLAYER_ROOT}/log/database.log",'daily')
     end
   end
 end
