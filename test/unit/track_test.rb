@@ -8,7 +8,7 @@ module MyMusicPlayer
       Track.any_instance.stubs(:rating_frame => OpenStruct.new(:text => '5'))
       @mock_id3_tag = mock('tag')
       @mock_id3_tag.stubs(:title => 'Foo', :artist => 'Bar')
-      Track.any_instance.stubs(:id3_tag => @mock_id3_tag)
+      Track.any_instance.stubs(:id3v2_tag => @mock_id3_tag)
       @track = create(:track)
     end
 

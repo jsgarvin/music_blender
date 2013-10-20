@@ -9,7 +9,7 @@ module MyMusicPlayer
       Track.any_instance.stubs(:rating_frame => OpenStruct.new(:text => '5'))
       @mock_id3_tag = mock('tag')
       @mock_id3_tag.stubs(:title => 'Foo', :artist => 'Bar')
-      Track.any_instance.stubs(:id3_tag => @mock_id3_tag)
+      Track.any_instance.stubs(:import_id3_tag_attributes)
       @music_folder = create(:music_folder_with_tracks)
     end
 
@@ -18,7 +18,8 @@ module MyMusicPlayer
     end
 
     def test_load_new_tracks
-      Track.any_instance.stubs(:id3_tag => OpenStruct.new(:title => 'foo', :artist => 'bar'))
+      Track.any_instance.unstub(:import_id3_tag_attributes)
+      Track.any_instance.stubs(:id3v2_tag => OpenStruct.new(:title => 'foo', :artist => 'bar'))
       music_folder.stubs(:relative_paths => ['a','b','c'])
       create(:track, :music_folder => music_folder, :relative_path => 'a')
       assert_difference('Track.count' => 2) do

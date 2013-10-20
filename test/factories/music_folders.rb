@@ -4,8 +4,8 @@ FactoryGirl.define do
     path '/some/music/path/'
 
     factory :music_folder_with_tracks do
-      after(:build) do |music_folder|
-        3.times { music_folder.tracks << build(:track) }
+      after(:create) do |music_folder|
+        3.times { music_folder.tracks << create(:track) }
       end
     end
 

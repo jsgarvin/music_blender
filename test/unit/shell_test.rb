@@ -24,16 +24,20 @@ module MyMusicPlayer
       assert_match(/Unrecognized Command: ping/,$stdout.string)
     end
 
-    def test_execute_info
-      #TODO: way too much mocking in here. find a better way.
-      mock_track = mock('track')
-      mock_track.expects(:title => 'Foobar', :full_path => '/some/path', :artist => OpenStruct.new(:name => 'Foobar'), :rating => 4)
-      mock_player.stubs(:current_track => mock_track)
-      mock_player.expects(:seconds)
-      mock_player.expects(:seconds_remaining)
-      assert_equal('',$stdout.string)
-      Shell.new.run(:info)
-      refute_equal('',$stdout.string)
+    describe 'info' do
+      let(:track) { create(:track) }
+      let(:player) { Player.new }
+
+      before do
+        Shell.any_instance.stubs(:player => player)
+        player.stubs(:current_track => track)
+      end
+
+      def test_execute_info
+        assert_equal('',$stdout.string)
+        Shell.new.run(:info)
+        refute_equal('',$stdout.string)
+      end
     end
 
     [:play,:pause,:stop].each do |command_name|
