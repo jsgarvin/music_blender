@@ -13,7 +13,7 @@ module MyMusicPlayer
     belongs_to :music_folder
 
     scope :by_weighted_random, ->() { select(%Q{*, ((strftime('%s','now') - strftime('%s', ifnull(last_played_at,created_at)))/#{1.month.seconds.to_f})*rating*random() AS weighted_random}).order('weighted_random') }
-    scope :except_recently_played, ->() { where(['last_played_at < ?', Track.unscoped.most_recent((count/10.0)+1).last.last_played_at]) }
+    scope :except_recently_played, ->() { where(['last_played_at IS NULL OR last_played_at < ?', Track.unscoped.most_recent((count/10.0)+1).last.last_played_at]) }
     scope :most_recent, ->(number) { order('last_played_at DESC').limit(number) }
 
     def full_path

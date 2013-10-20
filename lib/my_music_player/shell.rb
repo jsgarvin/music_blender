@@ -37,7 +37,8 @@ module MyMusicPlayer
       puts player.current_track.full_path
       puts player.current_track.title
       puts player.current_track.artist.name
-      puts player.current_track.rating
+      puts "Rating: #{player.current_track.rating}"
+      puts "Last Played: #{player.current_track.last_played_at}"
       puts "Seconds: #{player.seconds} (#{player.seconds_remaining})"
     end
 
