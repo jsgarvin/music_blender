@@ -10,9 +10,6 @@ module MyMusicPlayer
     def run
       loop do
         process_output_line(stdout.readline) while stdout.ready?
-        # Because some of the output message types (@F, @E) in mpg321 v0.3.2
-        # seem to be getting erroneously sent to stderr instead of stdout.
-        process_output_line(stderr.readline) while stderr.ready?
         sleep 0.001
       end
     end
@@ -42,7 +39,6 @@ module MyMusicPlayer
     def process_frame_message(message)
       self.frames, self.frames_remaining, self.seconds, self.seconds_remaining =
         message.split(/\s/).map { |value| value.to_f }
-      execute_song_ended_hack if seconds_remaining < 1
     end
 
     def process_information_message(message)
@@ -56,27 +52,15 @@ module MyMusicPlayer
       case status
       when 0 then #STOPPED
         @playing = false
+        play_next_track if seconds_remaining < 1
       when 1 then #PAUSED
         @playing = false
       when 2 then #RESUMED
         @playing = true
-      when 3 then #ENDED
-        # Despite documentation to the contrary, this
-        # doesn't seem to ever actually occur IRL, so
-        # there's the execute_song_ended_hack method
-        # to fake it.
-        @playing = false
-        play
       end
     end
 
-    def execute_song_ended_hack
-      @stop_pause_status = 3
-      @playing = false
-      play
-    end
-
-    def play
+    def play_next_track
       player.play
     end
 

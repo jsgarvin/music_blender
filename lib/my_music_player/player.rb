@@ -65,7 +65,10 @@ module MyMusicPlayer
     end
 
     def pick_a_track
-      @current_track = music_folder.pick_a_track
+      music_folder.pick_a_track.tap do |track|
+        @current_track = track
+        logger.debug("Picked Next Track: #{track.id} - #{track.full_path}")
+      end
     end
 
     def monitor
@@ -76,5 +79,8 @@ module MyMusicPlayer
       MusicFolder.current
     end
 
+    def logger
+      @logger ||= Logger.new("#{PLAYER_ROOT}/log/player.log",'daily')
+    end
   end
 end
