@@ -14,7 +14,7 @@ module MyMusicPlayer
     end
 
     def test_pick_a_track
-      assert(music_folder.tracks.include?(music_folder.pick_a_track))
+      assert_includes(music_folder.tracks,music_folder.pick_a_track)
     end
 
     def test_load_new_tracks

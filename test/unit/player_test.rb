@@ -35,9 +35,9 @@ module MyMusicPlayer
 
         def test_sets_last_played_at
           player.stubs(:current_track => track1)
-          assert_nil(track1.last_played_at)
+          assert_operator(track1.last_played_at,:<,1.minute.ago)
           player.play
-          refute_nil(track1.last_played_at)
+          assert_operator(track1.last_played_at,:>,1.minute.ago)
         end
 
       end
