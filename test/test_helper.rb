@@ -29,6 +29,7 @@ module MyMusicPlayer
       capture_stdout
       MusicFolder.stubs(:current).returns(mock_music_folder)
       Track.any_instance.stubs(:persist_rating_to_id3_tag)
+      Track.any_instance.stubs(:id3_adapter => OpenStruct.new(:title => 'foo', :artist => 'bar', :rating => 42))
     end
 
     def after_teardown
