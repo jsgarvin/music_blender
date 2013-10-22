@@ -5,7 +5,7 @@ module MyMusicPlayer
 
     describe Id3Adapter do
       let(:path) { "#{PLAYER_ROOT}/test/music/point1sec.mp3" }
-      let(:adapter) { Id3Adapter.new(path) }
+      let(:adapter) { Id3Adapter.new(path,nil) }
 
       describe 'loading data' do
 
@@ -29,7 +29,8 @@ module MyMusicPlayer
             adapter.set_rating(42)
           end
         ensure
-          adapter.set_rating(1)
+          adapter.send(:v2tag).remove_frame(adapter.send(:rating_frame))
+          adapter.send(:tag_file).save
         end
 
       end

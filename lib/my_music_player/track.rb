@@ -61,7 +61,7 @@ module MyMusicPlayer
     end
 
     def id3_adapter
-      @id3_adapter ||= Id3Adapter.new(full_path)
+      @id3_adapter ||= Id3Adapter.new(full_path,rating)
     end
   end
 end

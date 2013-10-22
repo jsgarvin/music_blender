@@ -1,10 +1,11 @@
 module MyMusicPlayer
   class Id3Adapter
     RATING_FRAME_DESCRIPTION = 'MMP Rating'
-    attr_reader :path
+    attr_reader :initial_rating, :path
 
-    def initialize(path)
+    def initialize(path,initial_rating)
       @path = path
+      @initial_rating = initial_rating
     end
 
     def title
@@ -52,13 +53,13 @@ module MyMusicPlayer
     end
 
     def create_and_find_rating_frame
-      TagLib::ID3v2::CommentsFrame.new.tap do |rating_frame|
-        rating_frame.description = RATING_FRAME_DESCRIPTION
-        rating_frame.text = (rating || 1).to_s
-        v2tag.add_frame(rating_frame)
+      TagLib::ID3v2::CommentsFrame.new.tap do |new_frame|
+        new_frame.description = RATING_FRAME_DESCRIPTION
+        new_frame.text = (initial_rating || 1).to_s
+        v2tag.add_frame(new_frame)
         tag_file.save
       end
-      # Due to quirk in TagLib, the rating_frame
+      # Due to quirk in TagLib, the new_frame
       # from the above block is not accessible
       # anymore, so need to re-find an instance
       # of it that we can read and manipulate.
