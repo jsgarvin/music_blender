@@ -13,7 +13,7 @@ module MyMusicPlayer
     def test_call
       DbAdapter.any_instance.expects(:spin_up)
       mock_music_folder.expects(:load_new_tracks)
-      mock_shell.expects(:run)
+      mock_shell.expects(:run).throws(:exited)
       bootstrap.call
     end
 

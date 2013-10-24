@@ -16,7 +16,7 @@ module MyMusicPlayer
 
       def test_gracefully_fail_to_execute_command
         assert_equal('',$stdout.string)
-        shell.run(:ping)
+        run_shell(:ping)
         assert_match(/Unrecognized Command: ping/,$stdout.string)
       end
 
@@ -27,7 +27,7 @@ module MyMusicPlayer
 
         def test_execute_info
           assert_equal('',$stdout.string)
-          shell.run(:info)
+          run_shell(:info)
           refute_equal('',$stdout.string)
         end
       end
@@ -36,9 +36,17 @@ module MyMusicPlayer
         def test_execute_player_commands
           [:play,:stop,:quit].each do |command|
             mock_player.expects(command)
-            shell.run(command)
+            run_shell(command)
           end
         end
+      end
+
+      #######
+      private
+      #######
+
+      def run_shell(command)
+        assert_throws(:exited) { shell.run(command) }
       end
 
     end

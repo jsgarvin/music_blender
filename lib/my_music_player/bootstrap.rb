@@ -20,7 +20,7 @@ module MyMusicPlayer
     end
 
     def launch_shell
-      Shell.new.run(*ARGV)
+      puts catch(:exited) { Shell.new.run(*ARGV) }
     end
 
     def music_folder
