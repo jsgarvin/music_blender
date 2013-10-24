@@ -3,14 +3,16 @@ module MyMusicPlayer
 
     COMMANDS = {
       exit: ->() { player.stop; player.quit; throw(:exited, 'Exited Successfully'); },
-      info: ->() { print_info }
+      info: ->() { print_info },
+      rate: ->(rating) { update_rating(rating) },
     }.with_indifferent_access
 
     def run(*commands)
-      commands << :exit unless commands.empty?
+      commands << 'exit' unless commands.empty?
       print 'mmp> '
       (commands.shift || gets.strip).tap do |command|
-        execute(command)
+        puts command
+        execute(*command.split(/\s+/))
         run(*commands)
       end
     end
@@ -32,11 +34,16 @@ module MyMusicPlayer
       puts "Seconds: #{player.seconds} (#{player.seconds_remaining})"
     end
 
-    def execute(command)
+    def self.update_rating(rating)
+      player.current_track.update_attribute(:rating,rating)
+      puts "Rating Updated To: #{player.current_track.rating}"
+    end
+
+    def execute(command, *args)
       if player.respond_to?(command)
         player.send(command)
       elsif COMMANDS.has_key?(command)
-        COMMANDS[command].call
+        args.any? ? COMMANDS[command].call(*args) : COMMANDS[command].call
       else
         puts "Unrecognized Command: #{command}"
       end

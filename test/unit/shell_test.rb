@@ -41,12 +41,29 @@ module MyMusicPlayer
         end
       end
 
+      describe 'commands with arguments' do
+        let(:track) { create(:track) }
+
+        before do
+          mock_player.stubs(:current_track => track)
+        end
+
+        def test_executes_command_with_arguments
+          assert_equal('',$stdout.string)
+          assert_difference('track.rating' => -31) do
+            run_shell('rate 11')
+          end
+          assert_match(/Rating Updated To: 11/,$stdout.string)
+        end
+      end
+
       #######
       private
       #######
 
       def run_shell(command)
-        assert_throws(:exited) { shell.run(command) }
+        assert_throws(:exited) { shell.run(command.to_s) }
+        #shell.run(command.to_s)
       end
 
     end
