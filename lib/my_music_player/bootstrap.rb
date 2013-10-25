@@ -3,7 +3,7 @@ module MyMusicPlayer
 
     def call
       spin_up_db
-      load_new_tracks
+      update_tracks
       launch_shell
     end
 
@@ -15,8 +15,9 @@ module MyMusicPlayer
       DbAdapter.new.spin_up
     end
 
-    def load_new_tracks
-      music_folder.load_new_tracks
+    def update_tracks
+      music_folder.load_tracks
+      music_folder.update_missing_flags
     end
 
     def launch_shell

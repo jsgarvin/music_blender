@@ -12,16 +12,23 @@ module MyMusicPlayer
 
     def pick_a_track
       tracks.
+        except_missing.
         except_recently_played.
         except_by_recently_played_artists.
         by_weighted_random.
         last
     end
 
-    def load_new_tracks
+    def load_tracks
       relative_paths.each do |relative_path|
         track = tracks.find_or_create_by(:relative_path => relative_path)
         track.import_id3_tag_attributes!
+      end
+    end
+
+    def update_missing_flags
+      tracks.each do |track|
+        track.update_column(:missing, ! File.exists?(track.full_path))
       end
     end
 

@@ -16,13 +16,14 @@ module MyMusicPlayer
     }
 
     scope :except_recently_played, ->() {
-      where(['last_played_at IS NULL OR last_played_at < ?', Track.unscoped.most_recent((count*0.1)+1).last.last_played_at])
+      where(['last_played_at IS NULL OR last_played_at < ?', unscoped.most_recent((count*0.1)+1).last.last_played_at])
     }
 
     scope :except_by_recently_played_artists, ->() {
-      where(['artist_id NOT IN (?)',Track.unscoped.most_recent((count*0.02)+1).select(:artist_id).map(&:artist_id)])
+      where(['artist_id NOT IN (?)', unscoped.most_recent((count*0.02)+1).select(:artist_id).map(&:artist_id)])
     }
 
+    scope :except_missing, ->() { where(:missing => false) }
     scope :most_recent, ->(number) { order('last_played_at DESC').limit(number) }
 
     def full_path

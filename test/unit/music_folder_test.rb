@@ -28,10 +28,20 @@ module MyMusicPlayer
 
         def test_load_new_tracks
           assert_difference('Track.count' => 2) do
-            music_folder.load_new_tracks
+            music_folder.load_tracks
           end
         end
 
+      end
+
+      describe 'update missing flags' do
+        let(:track) { create(:track) }
+
+        def test_updates_missing_flags
+          refute(track.missing?)
+          track.music_folder.update_missing_flags
+          assert(track.reload.missing?)
+        end
       end
 
       describe 'music_path' do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 4) do
+ActiveRecord::Schema.define(version: 5) do
 
   create_table "artists", force: true do |t|
     t.string   "name",       null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 4) do
   add_index "music_folders", ["path"], name: "index_music_folders_on_path"
 
   create_table "tracks", force: true do |t|
-    t.string   "relative_path",   null: false
+    t.string   "relative_path",                   null: false
     t.datetime "last_played_at"
     t.integer  "rating"
     t.string   "title"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 4) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "artist_id"
+    t.boolean  "missing",         default: false
   end
 
   add_index "tracks", ["music_folder_id", "last_played_at"], name: "index_tracks_on_music_folder_id_and_last_played_at"
