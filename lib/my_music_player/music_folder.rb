@@ -2,10 +2,12 @@ module MyMusicPlayer
   class MusicFolder < ActiveRecord::Base
     has_many :tracks
 
-    class << self
-      def current
-        @current ||= MusicFolder.find_or_create_by(path: MUSIC_PATH)
-      end
+    def self.current
+      @current ||= MusicFolder.find_or_create_by(path: music_path)
+    end
+
+    def self.music_path
+      MUSIC_PATH
     end
 
     def pick_a_track

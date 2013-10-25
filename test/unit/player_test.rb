@@ -14,7 +14,7 @@ module MyMusicPlayer
       before do
         Open3.expects(:popen3).returns(mock_stdin,mock_stdout,mock_stderr,mock_wait_thread)
         Thread.expects(:new).returns(mock_monitor_thread)
-        player.stubs(:config).returns(mock_config)
+        player.stubs(:config)
       end
 
       describe 'play' do
@@ -57,23 +57,19 @@ module MyMusicPlayer
         player.quit
       end
 
-      def test_should_exercise_a_delegated_method
-        mock_monitor = mock('monitor')
-        mock_monitor.expects(:song_name)
-        PlayerMonitor.stubs(:new => mock_monitor)
-        player.song_name
-      end
+      describe 'delegated methods' do
+        let(:mock_monitor) { mock('monitor') }
 
-      def test_should_get_status_string
-        mock_monitor = mock('monitor')
-        mock_monitor.expects(:stop_pause_status => 1)
-        PlayerMonitor.stubs(:new => mock_monitor)
-        assert_equal('Paused', player.status_string)
-      end
+        before do
+          PlayerMonitor.stubs(:new => mock_monitor)
+        end
 
-      #def test_config
-      #  assert_equal(mock_music_folder,player.send(:music_folder))
-      #end
+        def test_should_get_status_string
+          mock_monitor.expects(:stop_pause_status => 1)
+          assert_equal('Paused', player.status_string)
+        end
+
+      end
 
     end
   end

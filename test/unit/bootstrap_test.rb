@@ -4,23 +4,28 @@ module MyMusicPlayer
   class BootstrapTest < MiniTest::Unit::TestCase
     attr_reader :bootstrap, :mock_shell
 
-    def setup
-      @bootstrap = Bootstrap.new
-      @mock_shell = mock('shell')
-      Shell.stubs(:new).returns(@mock_shell)
-    end
+    describe Bootstrap do
+      let(:bootstrap) { Bootstrap.new }
+      let(:mock_shell) { mock('shell')}
+      let(:mock_music_folder) { mock('music_folder') }
 
-    def test_call
-      DbAdapter.any_instance.expects(:spin_up)
-      mock_music_folder.expects(:load_new_tracks)
-      mock_shell.expects(:run).throws(:exited)
-      bootstrap.call
-    end
+      before do
+        Shell.stubs(:new).returns(mock_shell)
+        MusicFolder.stubs(:current).returns(mock_music_folder)
+      end
 
-    def test_config
-      assert_equal(mock_music_folder,bootstrap.send(:music_folder))
-    end
+      def test_call
+        DbAdapter.any_instance.expects(:spin_up)
+        mock_music_folder.expects(:load_new_tracks)
+        mock_shell.expects(:run).throws(:exited)
+        bootstrap.call
+      end
 
+      def test_config
+        assert_equal(mock_music_folder,bootstrap.send(:music_folder))
+      end
+
+    end
   end
 end
 

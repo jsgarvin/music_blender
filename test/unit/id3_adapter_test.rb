@@ -4,7 +4,7 @@ module MyMusicPlayer
   class Id3AdapterTest < MiniTest::Unit::TestCase
 
     describe Id3Adapter do
-      let(:path) { "#{PLAYER_ROOT}/test/music/point1sec.mp3" }
+      let(:path) { "#{MUSIC_PATH}/point1sec.mp3" }
       let(:adapter) { Id3Adapter.new(path,nil) }
 
       describe 'loading data' do
