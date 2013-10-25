@@ -4,7 +4,10 @@ module MyMusicPlayer
     COMMANDS = {
       exit: ->() { player.stop; player.quit; throw(:exited, 'Exited Successfully'); },
       info: ->() { print_info },
+      play: ->() { player.play },
+      quit: ->() { player.quit },
       rate: ->(rating) { update_rating(rating) },
+      stop: ->() { player.stop },
     }.with_indifferent_access
 
     def run
@@ -41,9 +44,7 @@ module MyMusicPlayer
     end
 
     def execute(command, *args)
-      if player.respond_to?(command)
-        player.send(command)
-      elsif COMMANDS.has_key?(command)
+      if COMMANDS.has_key?(command)
         args.any? ? COMMANDS[command].call(*args) : COMMANDS[command].call
       else
         puts "Unrecognized Command: #{command}"
