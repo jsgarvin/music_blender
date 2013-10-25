@@ -62,8 +62,8 @@ module MyMusicPlayer
       #######
 
       def run_shell(command)
-        assert_throws(:exited) { shell.run(command.to_s) }
-        #shell.run(command.to_s)
+        shell.stubs(:gets).returns(command.to_s).then.returns('exit')
+        assert_throws(:exited) { shell.run }
       end
 
     end

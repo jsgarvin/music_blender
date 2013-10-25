@@ -7,19 +7,20 @@ module MyMusicPlayer
       rate: ->(rating) { update_rating(rating) },
     }.with_indifferent_access
 
-    def run(*commands)
-      commands << 'exit' unless commands.empty?
-      print 'mmp> '
-      (commands.shift || gets.strip).tap do |command|
-        puts command
-        execute(*command.split(/\s+/))
-        run(*commands)
+    def run
+      loop do
+        print 'mmp> '
+        execute(*next_command_with_args)
       end
     end
 
     #######
     private
     #######
+
+    def next_command_with_args
+      gets.strip.split(/\s+/)
+    end
 
     def self.player
       @player ||= Player.new
