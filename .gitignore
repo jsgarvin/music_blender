@@ -1,5 +1,5 @@
 coverage
 *.swp
-log/*
+log/*.log
 db/*.db
 *.backup
