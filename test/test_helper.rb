@@ -3,7 +3,6 @@ require 'bundler/setup'
 require 'simplecov'
 require 'minitest/autorun'
 require 'factory_girl'
-require 'etc'
 require 'pry'
 require 'assert_difference'
 

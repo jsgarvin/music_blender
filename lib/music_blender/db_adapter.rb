@@ -9,6 +9,7 @@ module MusicBlender
     end
 
     def establish_connection
+      FileUtils.mkdir_p(db_folder)
       @connection ||= ActiveRecord::Base.establish_connection(
         :adapter => 'sqlite3',
         :database => path_to_db
@@ -39,7 +40,11 @@ module MusicBlender
     end
 
     def path_to_db
-      @path_to_db ||= "#{BLENDER_ROOT}/db/music_blender.db"
+      @path_to_db ||= "#{db_folder}/music_blender.db"
+    end
+
+    def db_folder
+      "#{Etc.getpwuid.dir}/.music_blender/db"
     end
 
     def path_to_schema

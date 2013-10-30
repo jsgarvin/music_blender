@@ -1,5 +1,7 @@
 require 'active_record'
 require 'bundler/setup'
+require 'etc'
+require 'fileutils'
 require 'find'
 require 'io/wait'
 require 'singleton'
