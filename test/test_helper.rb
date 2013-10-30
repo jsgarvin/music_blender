@@ -9,18 +9,18 @@ require 'assert_difference'
 
 SimpleCov.start
 
-require 'my_music_player'
+require 'music_blender'
 
 FactoryGirl.find_definitions
-module MyMusicPlayer
-  MUSIC_PATH = "#{PLAYER_ROOT}/test/music"
+module MusicBlender
+  MUSIC_PATH = "#{BLENDER_ROOT}/test/music"
 
   class MiniTest::Unit::TestCase
     include AssertDifference
     include FactoryGirl::Syntax::Methods
 
     ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => ':memory:')
-    silence_stream(STDOUT)  { load("#{PLAYER_ROOT}/db/schema.rb") }
+    silence_stream(STDOUT)  { load("#{BLENDER_ROOT}/db/schema.rb") }
 
     def before_setup
       super

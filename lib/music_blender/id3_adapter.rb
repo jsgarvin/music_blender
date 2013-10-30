@@ -1,4 +1,4 @@
-module MyMusicPlayer
+module MusicBlender
   class Id3Adapter
     RATING_FRAME_DESCRIPTION = 'MMP Rating'
     attr_reader :initial_rating, :path

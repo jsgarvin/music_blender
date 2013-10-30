@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module MyMusicPlayer
+module MusicBlender
   class PlayerTest < MiniTest::Unit::TestCase
 
     describe Player do

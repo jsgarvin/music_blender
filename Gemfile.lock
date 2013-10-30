@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mmp (0.0.1)
+    music_blender (0.0.1)
       activerecord
       sqlite3
       taglib-ruby
@@ -61,7 +61,7 @@ DEPENDENCIES
   assert_difference
   factory_girl
   fakefs
-  mmp!
   mocha
+  music_blender!
   pry
   simplecov

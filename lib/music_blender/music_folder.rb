@@ -1,4 +1,4 @@
-module MyMusicPlayer
+module MusicBlender
   class MusicFolder < ActiveRecord::Base
     has_many :tracks
 

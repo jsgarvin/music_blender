@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-require_relative '../lib/my_music_player'
-
-MyMusicPlayer::MUSIC_PATH = ARGV.pop
-MyMusicPlayer::Bootstrap.new.call

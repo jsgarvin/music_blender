@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :track, :class => MyMusicPlayer::Track do
+  factory :track, :class => MusicBlender::Track do
     association :artist
     association :music_folder
     sequence(:title) { |counterx| "Factory Generated #{counterx}" }

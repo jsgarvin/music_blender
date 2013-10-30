@@ -1,5 +1,5 @@
 require 'rake/testtask'
-require File.expand_path('../lib/my_music_player', __FILE__)
+require File.expand_path('../lib/music_blender', __FILE__)
 
 task :default => :test
 

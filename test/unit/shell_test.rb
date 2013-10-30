@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module MyMusicPlayer
+module MusicBlender
   class ShellTest < MiniTest::Unit::TestCase
     attr_reader :mock_player, :mock_scanner
 

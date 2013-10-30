@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module MyMusicPlayer
+module MusicBlender
   class DbAdapterTest < MiniTest::Unit::TestCase
 
     describe DbAdapter do

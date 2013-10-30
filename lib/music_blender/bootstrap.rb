@@ -1,4 +1,4 @@
-module MyMusicPlayer
+module MusicBlender
   class Bootstrap
 
     def call

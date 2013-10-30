@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module MyMusicPlayer
+module MusicBlender
   class TrackTest < MiniTest::Unit::TestCase
 
     describe Track do

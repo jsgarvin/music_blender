@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require_relative '../lib/music_blender'
+
+MusicBlender::MUSIC_PATH = ARGV.pop
+MusicBlender::Bootstrap.new.call

@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :music_folder, :class => MyMusicPlayer::MusicFolder do
+  factory :music_folder, :class => MusicBlender::MusicFolder do
     path '/some/music/path/'
 
     factory :music_folder_with_tracks do

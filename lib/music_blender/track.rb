@@ -1,4 +1,4 @@
-module MyMusicPlayer
+module MusicBlender
   class Track < ActiveRecord::Base
 
     validates_uniqueness_of :relative_path, :scope => :music_folder_id

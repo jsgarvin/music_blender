@@ -1,4 +1,4 @@
-module MyMusicPlayer
+module MusicBlender
   class Player
 
     PLAYING_STATUS_CODE_MAP = {
@@ -29,7 +29,7 @@ module MyMusicPlayer
     def initialize
       @stdin, @stdout, @stderr, @wait_thread =
         Open3.popen3('mpg123 --rva-mix -R')
-      @logger = Logger.new("#{PLAYER_ROOT}/log/player.log",'daily')
+      @logger = Logger.new("#{BLENDER_ROOT}/log/player.log",'daily')
       Thread.new { monitor.run }
     end
 

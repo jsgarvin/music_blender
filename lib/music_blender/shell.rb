@@ -1,9 +1,10 @@
-module MyMusicPlayer
+module MusicBlender
   class Shell
 
     COMMANDS = {
       exit: ->() { player.stop; player.quit; throw(:exited, 'Exited Successfully'); },
       info: ->() { print_info },
+      pause: ->() { player.pause },
       play: ->() { player.play },
       quit: ->() { player.quit },
       rate: ->(rating) { update_rating(rating) },

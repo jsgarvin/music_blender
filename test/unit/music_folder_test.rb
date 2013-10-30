@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'ostruct'
 
-module MyMusicPlayer
+module MusicBlender
   class MusicFolderTest < MiniTest::Unit::TestCase
 
     describe MusicFolder do

@@ -1,4 +1,4 @@
-module MyMusicPlayer
+module MusicBlender
   class DbAdapter
     attr_reader :connection
 
@@ -39,15 +39,15 @@ module MyMusicPlayer
     end
 
     def path_to_db
-      @path_to_db ||= "#{PLAYER_ROOT}/db/my_music_player.db"
+      @path_to_db ||= "#{BLENDER_ROOT}/db/music_blender.db"
     end
 
     def path_to_schema
-      @path_to_schema ||= "#{PLAYER_ROOT}/db/schema.rb"
+      @path_to_schema ||= "#{BLENDER_ROOT}/db/schema.rb"
     end
 
     def setup_db_log
-      ActiveRecord::Base.logger ||= Logger.new("#{PLAYER_ROOT}/log/database.log",'daily')
+      ActiveRecord::Base.logger ||= Logger.new("#{BLENDER_ROOT}/log/database.log",'daily')
     end
   end
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module MyMusicPlayer
+module MusicBlender
   class Id3AdapterTest < MiniTest::Unit::TestCase
 
     describe Id3Adapter do

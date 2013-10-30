@@ -1,4 +1,4 @@
-module MyMusicPlayer
+module MusicBlender
   class PlayerMonitor
     attr_accessor :frames, :frames_remaining, :player, :playing, :seconds, :seconds_remaining,
       :song_name, :stop_pause_status

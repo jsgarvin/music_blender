@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module MyMusicPlayer
+module MusicBlender
   class BootstrapTest < MiniTest::Unit::TestCase
     attr_reader :bootstrap, :mock_shell
 

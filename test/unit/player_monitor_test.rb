@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'tempfile'
 
-module MyMusicPlayer
+module MusicBlender
   class PlayerMonitorTest < MiniTest::Unit::TestCase
 
     describe PlayerMonitor do
