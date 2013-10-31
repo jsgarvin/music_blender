@@ -18,7 +18,11 @@ MusicBlender...
 
 ## Dependencies
 
-MusicBlender requires you to have [mpg123](http://www.mpg123.de/ "mpg123") installed and in your path. MusicBlender does *not* play well with mpg321.
+You must have [mpg123](http://www.mpg123.de/ "mpg123") installed and in your path. MusicBlender does *not* play well with mpg321.
+
+Obviously, you will also need [ruby](https://www.ruby-lang.org) installed and, for easy installation, [ruby-gems](https://rubygems.org/pages/download).
+
+
 
 ## Installation
 
