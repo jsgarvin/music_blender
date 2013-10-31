@@ -22,8 +22,6 @@ You must have [mpg123](http://www.mpg123.de/ "mpg123") installed and in your pat
 
 Obviously, you will also need [ruby](https://www.ruby-lang.org) installed and, for easy installation, [ruby-gems](https://rubygems.org/pages/download).
 
-
-
 ## Installation
 
 1. install [mpg123](http://www.mpg123.de/ "mpg123")

@@ -13,7 +13,7 @@ module MusicBlender
 
     def run
       loop do
-        print 'mmp> '
+        print 'blender> '
         execute(*next_command_with_args)
       end
     end
