@@ -1,4 +1,5 @@
 # MusicBlender
+[![Code Climate](https://codeclimate.com/github/jsgarvin/music_blender.png)](https://codeclimate.com/github/jsgarvin/music_blender)
 
 A ruby wrapper around [mpg123](http://www.mpg123.de/ "mpg123") providing some additional features.
 
