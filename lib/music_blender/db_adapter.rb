@@ -52,7 +52,7 @@ module MusicBlender
     end
 
     def setup_db_log
-      ActiveRecord::Base.logger ||= Logger.new("#{BLENDER_ROOT}/log/database.log",'daily')
+      ActiveRecord::Base.logger ||= Logger.new("#{BLENDER_ROOT}/log/database.log", 10, 1024000)
     end
   end
 end

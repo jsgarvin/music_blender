@@ -29,7 +29,7 @@ module MusicBlender
     def initialize
       @stdin, @stdout, @stderr, @wait_thread =
         Open3.popen3('mpg123 --rva-mix -R')
-      @logger = Logger.new("#{BLENDER_ROOT}/log/player.log",'daily')
+      @logger = Logger.new("#{BLENDER_ROOT}/log/player.log", 10, 1024000)
       Thread.new { monitor.run }
     end
 
